@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Library Home Page</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
+</head>
+<body>
+
+
+            <!--Navbar -->
+
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+
+        <div class="container mt-5">
+            <a class="navbar-brand fw-bold " href="#">
+             Library management
+            </a>
+        </div>
+    </nav>
+
+
+            <!--main content-->
+
+<div class="container ">
+
+    <h1 class="display-4 fw-bold text-center mt-5">
+        Library Management System
+    </h1>
+
+    <p class="lead text-center mb-4">
+        Managing book efficiently
+    </p>
+
+    <div class="d-flex justify-content-center gap-3 mt-4">
+        <a
+                class="btn btn-primary btn-lg"
+                th:href="@{/books/list}">View Books
+        </a>
+
+        <a
+                class="btn btn-success btn-lg"
+                th:href="@{/books/showFormForAdd}">Add Book
+        </a>
+
+    </div>
+
+
+
+
+
+
+</div>
+
+
+<footer class="text-center text-muted mt-5 py-3">
+    <p class="mb-0">
+         © 2026 Library Management System
+    </p>
+</footer>
+
+
+
+</body>
+</html>

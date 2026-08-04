@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>List Of Books</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
+
+
+</head>
+<body>
+    <h3>Library Books</h3>
+
+<!--    <div class="alert alert-success"-->
+<!--        th:if="${success}"-->
+<!--        th:text="${success}">-->
+<!--    </div>-->
+
+    <div class="d-flex justify-content-center gap-3 mt-4">
+        <a
+                class="btn btn-secondary btn-lg"
+                th:href="@{/books/}">Home
+        </a>
+
+        <a
+                class="btn btn-success btn-lg"
+                th:href="@{/books/showFormForAdd}">Add Book
+        </a>
+
+        <a class="btn btn-secondary"
+           th:href="@{/books/list}">
+            Show All
+        </a>
+    </div>
+<!--    Add search bar to search the books-->
+    <form th:action="@{/books/search}" method="get">
+
+        <div class="input-group mb-3 w-25">
+            <input
+                type="search"
+                name="query"
+                class="form-control"
+                placeholder="Search Book by title...">
+            <button type="submit" class="btn btn-primary">Search</button>
+
+
+        </div>
+    </form>
+    <div class="alert alert-warning"
+         th:if="${#lists.isEmpty(books)}">
+        No Book found for "<span th:text="${query}"></span>"
+    </div>
+
+
+
+
+
+
+    <table class="table table-striped table-hover table-bordered"
+           th:if="${!#lists.isEmpty(books)}">
+
+        <thead class="table-dark">
+
+        <tr>
+            <th>ID</th>
+            <th>Title</th>
+            <th>Author</th>
+            <th>Category</th>
+            <th>Quantity</th>
+            <th>Price</th>
+            <th>Actions</th>
+        </tr>
+
+        </thead>
+
+        <tbody>
+
+        <!-- Book rows will come here -->
+
+        <tr th:each="book : ${books}">
+
+            <td th:text="${book.id}"></td>
+            <td th:text="${book.title}"></td>
+            <td th:text="${book.author}"></td>
+            <td th:text="${book.category}"></td>
+            <td th:text="${book.quantity}"></td>
+            <td th:text="${book.price}"></td>
+
+            <td>  <!-- update delete-->
+                <a class="btn btn-warning btn-sm me-2"
+                   th:href="@{/books/showFormForUpdate(id=${book.id})}"
+                   style="background-color: lightseagreen; color: white">
+                    Edit
+                </a>
+
+                <a class="btn btn-danger btn-sm"
+                   th:href="@{/books/delete(id=${book.id})}"
+                   onclick="return confirm('Are you sure you want to delete this book?')">
+                    Delete
+                </a>
+            </td>
+
+        </tr>
+
+        </tbody>
+
+    </table>
+
+
+</body>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+<script th:if="${success}" th:inline="javascript">
+    Swal.fire({
+        toast: true,
+        position: 'top',
+        icon: 'success',
+        title: [[${success}]],
+        showConfirmButton: false,
+        timer: 2000,
+        timerProgressBar: true
+    });
+</script>
+</html>
