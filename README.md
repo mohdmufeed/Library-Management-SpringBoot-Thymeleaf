@@ -62,7 +62,7 @@ http://localhost:8080/books/
 
 ## 📸 Preview
 
-> Add screenshots of your Login Page, Home Page, Book List, and Add Book page here for a better project showcase.
+> _____________
 
 ---
 
