@@ -5,6 +5,7 @@ import com.library_management_thymeleaf_CRUD.inventory_management.repository.Boo
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import java.util.List;
+import java.util.Objects;
 
 @Service
 @RequiredArgsConstructor
@@ -36,10 +37,17 @@ public class BookServiceImpl implements BookService {
                 book.getAuthor()==null || book.getAuthor().isBlank() ){
             throw new RuntimeException("Book title/author field cannot be empty");
         }
-        if( existsByTitleAndAuthor(book.getTitle(),book.getAuthor())){
-            throw new RuntimeException("Book with title and author already exists");
+        Book existingBook = findByTitleAndAuthor(book.getTitle(),book.getAuthor());
+
+        if(existingBook==null){
+            return bookRepository.save(book);
         }
-        return bookRepository.save(book);
+        if(existingBook.getId().equals(book.getId())){
+            return bookRepository.save(book);
+        } else {
+            throw new RuntimeException("Book already exists");
+        }
+
     }
 
     @Override
@@ -78,5 +86,13 @@ public class BookServiceImpl implements BookService {
             throw new RuntimeException("Title cannot be null or blank");
         }
         return bookRepository.findByTitleContainingIgnoreCase(title);
+    }
+
+    @Override
+    public Book findByTitleAndAuthor(String title, String author) {
+        if(title==null || title.isBlank() || author==null || author.isBlank()){
+            throw new RuntimeException("Title and Author cannot be null or blank");
+        }
+        return bookRepository.findByTitleAndAuthor(title,author);
     }
 }

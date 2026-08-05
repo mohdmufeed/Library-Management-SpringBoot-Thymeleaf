@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Access Denied</title>
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css"
+          rel="stylesheet">
+</head>
+
+<body class="bg-light">
+
+<div class="container">
+
+    <div class="row justify-content-center mt-5">
+
+        <div class="col-md-7">
+
+            <div class="card shadow border-danger">
+
+                <div class="card-body text-center p-5">
+
+                    <h1 class="display-2 text-danger">
+                        403
+                    </h1>
+
+                    <h2 class="mb-3">
+                        Access Denied
+                    </h2>
+
+                    <p class="lead">
+                        Sorry! You don't have permission to access this page.
+                    </p>
+
+                    <hr>
+
+                    <p>
+                        <strong>Logged in as:</strong>
+                        <span sec:authentication="principal.username"></span>
+                    </p>
+
+                    <p>
+                        <strong>Your Role(s):</strong>
+                        <span sec:authentication="principal.authorities"></span>
+                    </p>
+
+                    <hr>
+
+                    <a th:href="@{/books/}"
+                       class="btn btn-primary me-2">
+                        🏠 Home
+                    </a>
+
+                    <form th:action="@{/logout}"
+                          method="post"
+                          style="display:inline;">
+
+                        <button type="submit"
+                                class="btn btn-danger">
+                            Logout
+                        </button>
+
+                    </form>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+</body>
+</html>

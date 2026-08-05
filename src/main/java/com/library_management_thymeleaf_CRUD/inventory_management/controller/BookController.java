@@ -17,7 +17,7 @@ public class BookController {
     private final BookService bookService;
 
     @GetMapping("/")
-    public String home(Model model) {
+    public String home() {
         return "home";
     }
 
@@ -61,8 +61,17 @@ public class BookController {
     @GetMapping("/search")
     public String searchBooks(@RequestParam String query, Model model) {
 
-        model.addAttribute("books", bookService.findByTitle(query));
-        model.addAttribute("query", query);
+        if(query!=null && !query.isBlank()){
+            model.addAttribute("books", bookService.findByTitle(query));
+            model.addAttribute("query", query);
+            return "book-list";
+
+        }
+        model.addAttribute("error","Please enter a valid book title.");
+        model.addAttribute("books", bookService.findAll());
+
         return "book-list";
     }
+
+
 }
